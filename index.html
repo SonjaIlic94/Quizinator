@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizinator</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+    <nav>
+        <!--View High Score Link-->
+        <a href="#View High Score">View High Score</a>
+    </nav>
+    <!--Timer Countdown-->
+    <div class="wrapper" id="counter">
+        <p id="timer-contents">Time: 00</p>
+    </div>
+
+
+    <!-- <div class="wrapper">
+            <div class="container">
+                <h4 class="timer-contents">Time: <span id="timer">0</span></h4>
+            </div>
+        </div> -->
+
+
+    <!--Quiz Contents Box-->
+
+    <!-- Questions-->
+    <div id="quiz-contents" class="hide">
+        <div id="question">Question</div>
+        <div class="answers" id="quiz">
+            <ul>
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <!--Start Button-->
+    <div class="container" id="start-button">
+        <button class="btn" class="hide" id="start-quiz-button">Start Quiz!</button>
+        <button class="btn" id="submit-initials-button hide">Submit</button>
+    </div>
+
+
+    <!--Box that will show up as wrong or right-->
+    <div class="container" class="hide">
+        <p> you are wrong/right
+            <!--hidden-->
+        </p>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
