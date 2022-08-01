@@ -13,6 +13,7 @@ var initialsSubmitClick = document.querySelector("#submit-button")
 // var pageSection = document.querySelector("#quiz-contents");
 // var highScorePage = document.createElement("div");
 var questionTitleText = document.querySelector("#question-title");
+var initialsTitleText = document.querySelector("#initials-title");
 
 var currentQuestion = "";
 var counter = "";
@@ -20,22 +21,22 @@ var countdownFunction = "";
 
 
 //local storage auto input
-inputEl.value = localStorage.getItem("input");
+// inputEl.value = localStorage.getItem("input");
 
 var scores = [];
 
 // questions
 const questions = [
     {
-        questionText: "question 1",
-        answers: ['correct', 'false', 'not true', 'still wrong'],
-        correctAnswer: 0
+        questionText: "Commonly used data types do NOT include:",
+        answers: ['Strings', 'Booleans', 'Alerts', 'Numbers'],
+        correctAnswer: 2
     },
 
     {
-        questionText: "question 2",
-        answers: ['bat', 'cat', 'not true', 'still wrong'],
-        correctAnswer: 1
+        questionText: "Arrays can be used to store:",
+        answers: ['Numbers', 'Other Arrays', 'Booleans', 'All of the above'],
+        correctAnswer: 3
     }
 ];
 
@@ -46,7 +47,6 @@ function startQuiz() {
     counter = 20
     document.querySelector("#timer-contents").innerHTML = "Timer: " + counter;
     countdownFunction = setInterval(startTimer, 1000);
-
     currentQuestion = 0;
     displayQuiz(currentQuestion);
 }
@@ -72,6 +72,9 @@ function displayQuiz(q) {
             } else {
                 console.log('Wrong Answer!');
                 counter = counter - 5;
+                if (counter < 0) {
+                    counter = 0;
+                }
                 goToNextQuestion();
 
             }
@@ -108,6 +111,7 @@ function endQuiz() {
     }
     //stop the timer
     clearInterval(countdownFunction);
+    document.querySelector("#timer-contents").innerHTML = "Timer: " + counter;
     // log value of counter
     var counterLog = counter;
     // take u to the high score page
@@ -132,6 +136,10 @@ function saveHighScore(score) {
 
     // replace the page
     //record the counter + add to local storage
+    var initialsTitle = document.createElement("h2");
+    initialsTitle.className = "initials-title";
+    initialsTitle.textContent = "Enter your initials to log your score!";
+    initialsTitleText.appendChild(initialsTitle);
 
     // generate the form
     var formEl = document.createElement("FORM");
@@ -144,9 +152,9 @@ function saveHighScore(score) {
     document.getElementById("myForm").appendChild(inputEl);
 
     //add to local storage
-    inputEl = inputEl.value;
-    localStorage.setItem("initals", inputEl);
-    console.log(inputEl);
+    // inputEl = inputEl.value;
+    // localStorage.setItem("initals", inputEl);
+    // console.log(inputEl);
 
     var submitButtonEl = document.createElement("button");
     // submitButtonEl.setAttribute("type", "button");
@@ -155,25 +163,39 @@ function saveHighScore(score) {
     submitButtonEl.textContent = "Submit Your Initals";
     document.getElementById("myForm").appendChild(submitButtonEl);
 
+    submitButtonEl.addEventListener('click', function (event) {
+        event.preventDefault();
+    })
 
-    console.log();
-    //createHighScorePage(score, inputEl);
+    submitButtonEl.addEventListener("submit", showHighScore());
 }
 
+var showHighScore = function () {
+    formEl.removeChild(formEl.firstChild)
+    //     pageSection.parentNode.replaceChild(highScorePage, pageSection);
 
-// have to make function for submit
+    //     var submitInitalEl = document.createElement("button");
+    //     submitInitalEl.className = "submit-button";
+    //     submitInitalEl.textContent = "Submit Your Initals";
+    //     highScorePage.appendChild(submitInitalEl, generateForm());
 
-// var generateForm = function () {
-//     var formEl = document.createElement("FORM");
-//     formEl.setAttribute("id", "myForm");
-//     document.body.appendChild(formEl);
+    // create list item
+    var listItemEl = document.createElement("li");
+    listItemEl.className = "score-item";
 
-//     var inputEl = document.createElement("INPUT");
-//     inputEl.setAttribute("type", "text");
-//     inputEl.setAttribute("value", "Enter your Initials");
-//     document.getElementById("myForm").appendChild(inputEl);
+    // create div to hold task info and add to list item
+    var initialsItemEl = document.createElement("div");
+    initialsItemEl.className = "task-info";
+    initialsItemEl.innerHTML = "hi";
+    listItemEl.appendChild(initialsItemEl);
 
-// };
+    console.dir(listItemEl);
+
+    // add list item to list
+    //tasksToDoEl.appendChild(listItemEl);
+
+};
+// }
 
 // var createHighScore = function (event) {
 //     event.preventDefault();
@@ -183,19 +205,15 @@ function saveHighScore(score) {
 //     inistialsListToDo.appendChild(initialsEl);
 // }
 
-// var showHighScore = function () {
-//     pageSection.parentNode.replaceChild(highScorePage, pageSection);
 
-//     var submitInitalEl = document.createElement("button");
-//     submitInitalEl.className = "submit-button";
-//     submitInitalEl.textContent = "Submit Your Initals";
-//     highScorePage.appendChild(submitInitalEl, generateForm());
-
-// }
 
 // initialHighScoreClick.addEventListener("click", showHighScore);
 initialsSubmitClick.addEventListener("submit", saveHighScore);
 startButton.addEventListener('click', startQuiz);
+startButton.addEventListener('click', () => {
+    // 👇️ hide button
+    startButton.style.display = 'none';
+});
 
 
 //things to do:
